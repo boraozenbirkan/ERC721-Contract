@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Merkletree</title>
+  <script src="https://cdn.jsdelivr.net/npm/merkletreejs@latest/merkletree.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/keccak256@latest/keccak256.js"></script>
+</head>
+<body>
+<script type="text/javascript">  
+  const buf2hex = x => '0x' + x.toString('hex')
+
+  // Mint allowance: 2
+  // Root: 0xff5ef04373be1754342d6a38c6f50531fe0ec2e9b0b90ba99dcfd0e0cb388558
+  const addressGroup_0 = ["0x64861705e52bc05d85bcdE4520794830B7da0f49","0x7cfeC81d615A6557B1F6937F25C7C6689088424f"]
+
+  // Mint allowance: 5
+  // Root: 0xd7b872d25a93eee90a2aef7d91cb51b0a7190d714eda5cbacde4a7c857f2865e
+  const addressGroup_1 = ["0xe1EB9fdE7eA389dfea91d2693A443373c06178f4","0x85be25d0Ef53959dB27D42df1f7da57549154D5f","0x57aA71222694B395020b5b1335356D95C22f1B72"]
+
+  // Mint allowance: 10
+  // Root: 0x6d89c9bc0168fc5c8e7ba2f1a603c6b79b381ce12a2da7834ad608e0ff1549da
+  const addressGroup_2 = ["0xa96AAFee3AD157837c527eb55D11555F5Ddd37f5","0x95Ef28c0d1c01279AffA193Cd4670b621BE06c75","0x2686C521A0B30131d7D9cC3764cEe56C0bB38953"];
+
+  // Mint allowance: 13
+  // Root: 
+  const addressGroup_3 = ["0x0000000000000000000000000000000000000000","0x857A3371A2b89A437fD88B4a66fd5d0E884b20b4"]
+
+  const leaves = addressGroup_2.map(x => keccak256(x))
+  const tree = new MerkleTree(leaves, keccak256, { sortPairs: true })
+
+  console.log("Root: " + buf2hex(tree.getRoot()))
+
+  // to lowercase
+/*
+  addressToLower = addressGroup_0
+  for (let i = 0; i < addressToLower.length; i++){
+    addressToLower[i] = addressToLower[i].toLowerCase()
+  }  
+  console.log(addressToLower)
+*/
+
+  // ********** Generate Proof ********** //
+
+/*
+  const leaf = buf2hex(keccak256("0x85be25d0Ef53959dB27D42df1f7da57549154D5f")) // address from wallet using walletconnect/metamask
+  const proof = tree.getProof(leaf).map(x => buf2hex(x.data))
+
+  console.log(proof)
+
+  stringProof = "[";
+  for (let i = 0; i < proof.length; i++){    
+    stringProof += proof[i];
+    
+    if ((i+1) == proof.length){
+      stringProof += proof[i] + "]";
+    }
+    else {
+      stringProof += proof[i] + ",";
+    }
+  }
+  console.log("leaf: " + leaf)
+
+  //console.log(proof)
+  console.log("proof: " + stringProof)
+*/
+
+
+
+
+
+  //stringProof = proof.;
+  //stringProof.replace(/ /g,'').replaceAll('\'','"');
+
+  //contract.methods.safeMint(address, proof).send({ from: address }) // will be called on click of the mint button
+</script>
+</body>
+</html>
